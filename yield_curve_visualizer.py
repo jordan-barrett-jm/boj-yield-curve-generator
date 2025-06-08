@@ -139,13 +139,6 @@ class GovernmentSecuritiesAnalytics:
         
         metrics = {}
         
-        # Yield spread analysis
-        if len(df) >= 2:
-            short_yields = df[df['term_to_maturity'] <= 1]['yield']
-            long_yields = df[df['term_to_maturity'] >= 5]['yield']
-            
-            if not short_yields.empty and not long_yields.empty:
-                metrics['yield_spread'] = long_yields.max() - short_yields.min()
         
         # Curve characteristics
         metrics['securities_count'] = len(df)
@@ -400,16 +393,6 @@ class GovernmentSecuritiesAnalytics:
                 html.Div(f"Average: {metrics.get('avg_yield', 0):.2f}%", className='metric-detail')
             ], className='metric-card')
         )
-        
-        # Yield spread if available
-        if 'yield_spread' in metrics:
-            metric_cards.append(
-                html.Div([
-                    html.Div("Yield Spread", className='metric-label'),
-                    html.Div(f"{metrics['yield_spread']:.0f} bps", className='metric-value'),
-                    html.Div("Long-Short Differential", className='metric-detail')
-                ], className='metric-card')
-            )
         
         return html.Div(
             metric_cards,
