@@ -19,8 +19,8 @@ import re
 
 # Configuration
 OUTPUT_DIR = Path("output")
-APP_TITLE = "Jamaica Government Securities"
-APP_SUBTITLE = "Yield Curve Analytics"
+APP_TITLE = "Government of Jamaica Domestic Bonds Term Structure"
+APP_SUBTITLE = "GoJ Yield Curve by Jordan Barrett"
 
 # Professional color palette for financial applications
 COLORS = {
@@ -212,7 +212,7 @@ class GovernmentSecuritiesAnalytics:
         # Professional styling
         fig.update_layout(
             title=dict(
-                text=f"<b>Government of Jamaica Securities Yield Curve</b><br><span style='font-size:16px; color:{COLORS['text_secondary']}'>Term Structure of Interest Rates</span>",
+                text=f"<b>GoJ Securties Yield Curve</b><br><span style='font-size:16px; color:{COLORS['text_secondary']}'>Interest Rate Term Structure for GoJ bonds</span>",
                 font=dict(size=24, color=COLORS['text_primary'], family="Segoe UI, Helvetica Neue, Arial"),
                 x=0.5,
                 y=0.95
