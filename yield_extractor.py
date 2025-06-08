@@ -20,6 +20,8 @@ from openai import OpenAI
 from typing import List, Dict, Optional, Tuple
 import time
 import re
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+
 
 # Optional: Load environment variables from .env file
 try:
@@ -151,6 +153,11 @@ class BOJExtractor:
             logging.error(f"Error in date filtering: {e}")
             return True  # Default to processing if error occurs
 
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        retry=retry_if_exception_type((requests.RequestException, requests.Timeout))
+    )
     def _get_page_content(self, url: str) -> Optional[BeautifulSoup]:
         """Get page content with error handling"""
         try:
@@ -185,6 +192,11 @@ class BOJExtractor:
             
         return None
 
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        retry=retry_if_exception_type((requests.RequestException, requests.Timeout))
+    )
     def _download_and_convert_pdf(self, pdf_url: str, data_type: str = "general") -> Optional[str]:
         """Download PDF and convert to image with data type separation"""
         if pdf_url in self.processed_urls:
