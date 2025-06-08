@@ -349,8 +349,11 @@ class GovernmentSecuritiesAnalytics:
                 ], style={'marginBottom': '10px'}),
                 html.Div(
                     id='data-summary',
-                    style={'color': COLORS['text_secondary'], 'fontSize': '14px'}
-                )
+                    style={'color': COLORS['text_secondary'], 'fontSize': '14px', 'marginBottom': '10px'}
+                ),
+                html.Div([
+                    html.Span("Built by Jordan Barrett", style={'fontWeight': '600', 'color': COLORS['text_secondary']})
+                ], style={'marginBottom': '10px'})
             ], style={
                 'textAlign': 'center',
                 'marginTop': '30px',
